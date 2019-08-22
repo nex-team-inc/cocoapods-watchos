@@ -72,6 +72,25 @@ module Pod
 
             self.resolve_dependencies
             self.download_dependencies
+            # validate targets
+            validator = Xcode::TargetValidator.new(aggregate_targets, pod_targets)
+            validator.validate!
+
+            # generate pods projects
+            stage_sandbox(sandbox, pod_targets)
+
+            cache_analysis_result = analyze_project_cache
+            pod_targets_to_generate = cache_analysis_result.pod_targets_to_generate
+            aggregate_targets_to_generate = cache_analysis_result.aggregate_targets_to_generate
+
+            clean_sandbox(pod_targets_to_generate)
+
+            create_and_save_projects(pod_targets_to_generate, aggregate_targets_to_generate,
+                                     cache_analysis_result.build_configurations, cache_analysis_result.project_object_version)
+            SandboxDirCleaner.new(sandbox, pod_targets, aggregate_targets).clean!
+
+            update_project_cache(cache_analysis_result, target_installation_results)
+            write_lockfiles
 
             local_manifest = self.sandbox.manifest
 
@@ -93,7 +112,6 @@ module Pod
                 root_names_to_update = (added + changed + missing)
                 Pod::UI.puts "root_names_to_update/pod names: #{root_names_to_update.inspect}"
                 Pod::UI.puts "self.pod_targets: #{self.pod_targets}"
-                self.pod
 
                 # transform names to targets
                 cache = []
