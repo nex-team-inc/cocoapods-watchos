@@ -17,27 +17,36 @@ module Pod
     # @todo Create a PR to add your plugin to CocoaPods/cocoapods.org
     #       in the `plugins.json` file, once your plugin is released.
     #
-    class Binary < Command
-      self.summary = 'Short description of cocoapods-watchos-binary.'
+    class BuildWatchBinary < Command
+      self.summary = 'Build the watch binary framework files'
 
       self.description = <<-DESC
-        Longer description of cocoapods-watchos-binary.
+        Build the framework binaries for target in Podfile-WatchOS
       DESC
 
-      self.arguments = 'NAME'
+      #self.arguments = 'NAME'
 
       def initialize(argv)
-        @name = argv.shift_argument
+        # @name = argv.shift_argument
         super
       end
 
       def validate!
         super
-        help! 'A Pod name is required.' unless @name
+        # help! 'A Pod name is required.' unless @name
       end
 
       def run
-        UI.puts "Add your implementation for the cocoapods-watchos-binary plugin in #{__FILE__}"
+        UI.puts "Running BuildWatchBinary"
+        installer_context = installer_for_config
+        # install
+        podfile = installer_context.podfile
+        sandbox = installer_context.sandbox
+        prebuild_podfile = Pod::Podfile.from_ruby(podfile.defined_in_file)
+        lockfile = installer_context.lockfile
+
+        binary_installer = Pod::Installer.new(sandbox, prebuild_podfile, lockfile)
+        binary_installer.install!
       end
     end
   end

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14490.70" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="erh-Bn-9Mk">
+    <device id="watch44" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14490.21"/>
+    </dependencies>
+    <scenes>
+        <!--Metrics-->
+        <scene sceneID="Rbm-LI-TNw">
+            <objects>
+                <controller identifier="Metrics" hidesWhenLoading="NO" id="erh-Bn-9Mk" customClass="MetricsInterfaceController" customModule="Pterodactyl_WatchKit_Extension">
+                    <items>
+                        <label alignment="center" verticalAlignment="center" text="No Session" textAlignment="center" numberOfLines="2" id="W1O-1E-k9J">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="font" style="UICTFontTextStyleTitle0"/>
+                        </label>
+                        <imageView width="33" height="35" alignment="center" image="splash-logo" id="IOV-1r-Qyr"/>
+                    </items>
+                    <connections>
+                        <outlet property="metricsLabel" destination="W1O-1E-k9J" id="3zC-Et-cIc"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="176.65217391304347" y="138.88392857142858"/>
+        </scene>
+    </scenes>
+</document>
