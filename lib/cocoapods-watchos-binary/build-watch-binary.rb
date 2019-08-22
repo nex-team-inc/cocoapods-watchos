@@ -54,27 +54,7 @@ module Pod
         lockfile = installer.lockfile
 
         binary_installer = Pod::Installer.new(sandbox, podfile, lockfile)
-        # binary_installer.validate_targets
-        # binary_installer.generate_pods_project
         binary_installer.prebuild_watch_frameworks!
-        # installer.deployment = @deployment
-        # installer.clean_install = @clean_install
-        # installer.install!
-        #
-        #
-        # installer_context = installer_for_config
-        # # install
-        # podfile = installer_context.podfile
-        # sandbox = Pod::PrebuildSandbox.from_standard_sandbox(installer_context.sandbox)
-        # prebuild_podfile = Pod::Podfile.from_ruby(podfile.defined_in_file)
-        # lockfile = installer_context.lockfile
-        #
-        # Pod::UI.puts "🚀 Prebuild frameworks with podfile: #{podfile} and prebuild: #{prebuild_podfile}"
-        #
-        # binary_installer = Pod::Installer.new(sandbox, prebuild_podfile, lockfile)
-        # Pod::UI.puts "Sandbox manifest path: #{sandbox.project_path}"
-        # binary_installer.prebuild_frameworks!
-        # # binary_installer.install!
       end
     end
   end
