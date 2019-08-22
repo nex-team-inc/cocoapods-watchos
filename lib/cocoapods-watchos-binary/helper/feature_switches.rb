@@ -47,6 +47,7 @@ module Pod
     
     # a force disable option for integral 
     class Installer
+        @@force_disable_integration = false
         def self.force_disable_integration(value)
             @@force_disable_integration = value
         end
@@ -62,6 +63,7 @@ module Pod
 
     # a option to disable install complete message
     class Installer
+        @@disable_install_complete_message = false
         def self.disable_install_complete_message(value)
             @@disable_install_complete_message = value
         end

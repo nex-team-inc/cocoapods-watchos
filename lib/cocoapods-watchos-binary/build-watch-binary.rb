@@ -54,7 +54,9 @@ module Pod
         lockfile = installer.lockfile
 
         binary_installer = Pod::Installer.new(sandbox, podfile, lockfile)
-        binary_installer.install!
+        # binary_installer.validate_targets
+        # binary_installer.generate_pods_project
+        binary_installer.prebuild_watch_frameworks!
         # installer.deployment = @deployment
         # installer.clean_install = @clean_install
         # installer.install!
