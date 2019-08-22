@@ -1,6 +1,0 @@
-framework module Pods_Pterodactyl_WatchKit_Extension {
-  umbrella header "Pods-Pterodactyl WatchKit Extension-umbrella.h"
-
-  export *
-  module * { export * }
-}
