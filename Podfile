@@ -1,5 +1,5 @@
 use_frameworks!
-
+plugin 'cocoapods-watchos-binary'
 target 'Pterodactyl' do
   platform :ios, '12.0'
   pod 'PureLayout', '~> 3.1.4'

@@ -1,5 +1,7 @@
 module Pod
   class Command
+    include RepoUpdate
+    include ProjectDirectory
     # This is an example of a cocoapods plugin adding a top-level subcommand
     # to the 'pod' build-watch-binary.
     #
@@ -38,22 +40,39 @@ module Pod
 
       def run
         UI.puts "Running BuildWatchBinary"
-        installer_context = installer_for_config
-        # install
-        podfile = installer_context.podfile
-        sandbox = installer_context.sandbox
-        prebuild_podfile = Pod::Podfile.from_ruby(podfile.defined_in_file)
-        lockfile = installer_context.lockfile
+        require_relative 'helper/prebuild_sandbox'
+        require_relative 'Prebuild'
 
-        require 'helper/prebuild_sandbox'
-        require 'Prebuild'
+        verify_podfile_exists!
 
-        Pod::UI.puts "🚀  Prebuild frameworks"
+        # create sandbox installer
+        installer = installer_for_config
+        installer.repo_update = repo_update?(:default => false)
+        installer.update = false
+        sandbox = Pod::PrebuildSandbox.from_standard_sandbox(installer.sandbox)
+        podfile = installer.podfile
+        lockfile = installer.lockfile
 
-        binary_installer = Pod::Installer.new(sandbox, prebuild_podfile, lockfile)
-        UI.puts "Sandbox manifest path: #{sandbox.project_path}"
-        binary_installer.prebuild_frameworks!
-        # binary_installer.install!
+        binary_installer = Pod::Installer.new(sandbox, podfile, lockfile)
+        binary_installer.install!
+        # installer.deployment = @deployment
+        # installer.clean_install = @clean_install
+        # installer.install!
+        #
+        #
+        # installer_context = installer_for_config
+        # # install
+        # podfile = installer_context.podfile
+        # sandbox = Pod::PrebuildSandbox.from_standard_sandbox(installer_context.sandbox)
+        # prebuild_podfile = Pod::Podfile.from_ruby(podfile.defined_in_file)
+        # lockfile = installer_context.lockfile
+        #
+        # Pod::UI.puts "🚀 Prebuild frameworks with podfile: #{podfile} and prebuild: #{prebuild_podfile}"
+        #
+        # binary_installer = Pod::Installer.new(sandbox, prebuild_podfile, lockfile)
+        # Pod::UI.puts "Sandbox manifest path: #{sandbox.project_path}"
+        # binary_installer.prebuild_frameworks!
+        # # binary_installer.install!
       end
     end
   end

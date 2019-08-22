@@ -1,7 +1,7 @@
 require_relative 'rome/build_framework'
 require_relative 'helper/passer'
 require_relative 'helper/target_checker'
-
+require_relative 'helper/feature_switches'
 
 # patch prebuild ability
 module Pod
@@ -73,7 +73,7 @@ module Pod
             bitcode_enabled = Pod::Podfile::DSL.bitcode_enabled
             targets = []
 
-            UI.puts "local manifest: #{local_manifest}"
+            Pod::UI.puts "local manifest: #{local_manifest}"
             
             if local_manifest != nil
 
@@ -111,9 +111,9 @@ module Pod
                 targets = self.pod_targets
             end
 
+            Pod::UI.puts "Targets: #{targets}"
             targets = targets.reject {|pod_target| sandbox.local?(pod_target.pod_name) }
 
-            
             # build!
             Pod::UI.puts "Prebuild frameworks (total #{targets.count})"
             Pod::Prebuild.remove_build_dir(sandbox_path)
@@ -227,7 +227,7 @@ module Pod
         define_method(:run_plugins_post_install_hooks) do 
             old_method2.bind(self).()
             if Pod::is_prebuild_stage
-                UI.puts "Call to prebuild frameworks"
+                Pod::UI.puts "Call to prebuild frameworks"
                 self.prebuild_frameworks!
             end
         end
