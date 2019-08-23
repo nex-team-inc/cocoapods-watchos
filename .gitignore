@@ -2,3 +2,5 @@
 pkg
 .idea/
 Pods/**
+watchOS-GeneratedFrameworks/**
+**.gem

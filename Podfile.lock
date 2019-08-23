@@ -1,16 +1,5 @@
 PODS:
   - CodableFirebase (0.2.1)
-  - DeviceKit (2.0.0)
-  - PromiseKit (6.10.0):
-    - PromiseKit/CorePromise (= 6.10.0)
-    - PromiseKit/Foundation (= 6.10.0)
-    - PromiseKit/UIKit (= 6.10.0)
-  - PromiseKit/CorePromise (6.10.0)
-  - PromiseKit/Foundation (6.10.0):
-    - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.10.0):
-    - PromiseKit/CorePromise
-  - PureLayout (3.1.4)
   - RxCocoa (5.0.0):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -20,31 +9,22 @@ PODS:
 
 DEPENDENCIES:
   - CodableFirebase (~> 0.2.1)
-  - DeviceKit (~> 2.0.0)
-  - PromiseKit (~> 6.10.0)
-  - PureLayout (~> 3.1.4)
   - RxCocoa (~> 5.0.0)
   - RxSwift (~> 5.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CodableFirebase
-    - DeviceKit
-    - PromiseKit
-    - PureLayout
     - RxCocoa
     - RxRelay
     - RxSwift
 
 SPEC CHECKSUMS:
   CodableFirebase: 0bf201991eeec35eb9fcd987d271ea463cf34a80
-  DeviceKit: 72d36709552d4b3582abd76a53949148acad9811
-  PromiseKit: 1fdaeb6c0a94a5114fcb814ff3d772b86886ad4e
-  PureLayout: f08c01b8dec00bb14a1fefa3de4c7d9c265df85e
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
 
-PODFILE CHECKSUM: b84a28e01153b9995036e32e0021d2b2fbcbd7f9
+PODFILE CHECKSUM: 51add9a4fb03ee57c5bd98cdf3df6b6cbe3340ef
 
 COCOAPODS: 1.7.5

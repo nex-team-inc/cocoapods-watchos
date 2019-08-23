@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		66A30555FAC36CAE31C07593 /* Pods_Pterodactyl_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 164B696715B0AB64F2F427B8 /* Pods_Pterodactyl_WatchKit_Extension.framework */; };
 		C9707FC3CC6F5BE5EE0F6B7B /* Pods_Pterodactyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2B9F4C296BA137B8CD8FF8 /* Pods_Pterodactyl.framework */; };
 		D90A04DA22FE191B00D01ADD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90A04D922FE191B00D01ADD /* AppDelegate.swift */; };
 		D90A04DC22FE191B00D01ADD /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90A04DB22FE191B00D01ADD /* MetricsViewController.swift */; };
@@ -202,7 +201,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66A30555FAC36CAE31C07593 /* Pods_Pterodactyl_WatchKit_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

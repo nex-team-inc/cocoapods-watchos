@@ -20,6 +20,8 @@ module Pod
     #       in the `plugins.json` file, once your plugin is released.
     #
     class BuildWatchBinary < Command
+      WATCH_PODFILE_NAME = "Podfile_watchOS"
+
       self.summary = 'Build the watch binary framework files'
 
       self.description = <<-DESC
@@ -43,7 +45,10 @@ module Pod
         require_relative 'helper/prebuild_sandbox'
         require_relative 'Prebuild'
 
-        verify_podfile_exists!
+        verify_watch_podfile_exists!
+
+        podfile = Podfile.from_file(podfile_path)
+        config.podfile = podfile
 
         # create sandbox installer
         installer = installer_for_config
@@ -57,5 +62,18 @@ module Pod
         binary_installer.prebuild_watch_frameworks!
       end
     end
+
+    private
+    def podfile_path
+      Pathname.new(config.installation_root + BuildWatchBinary::WATCH_PODFILE_NAME)
+    end
+
+    def verify_watch_podfile_exists!
+      path = podfile_path
+      unless path.exist?
+        raise Informative, "#{BuildWatchBinary::WATCH_PODFILE_NAME} not found in installation directory"
+      end
+    end
+
   end
 end

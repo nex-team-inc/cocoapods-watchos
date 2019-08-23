@@ -93,6 +93,7 @@ module Pod
             write_lockfiles
 
             local_manifest = self.sandbox.manifest
+            UI::puts "#{local_manifest.inspect}"
 
             if local_manifest != nil
                 changes = prebuild_pods_changes
@@ -110,9 +111,6 @@ module Pod
                 end
 
                 root_names_to_update = (added + changed + missing)
-                Pod::UI.puts "root_names_to_update/pod names: #{root_names_to_update.inspect}"
-                Pod::UI.puts "self.pod_targets: #{self.pod_targets}"
-
                 # transform names to targets
                 cache = []
                 targets = root_names_to_update.map do |pod_name|
@@ -126,7 +124,9 @@ module Pod
                 # add the dendencies
                 dependency_targets = targets.map {|t| t.recursive_dependent_targets }.flatten.uniq || []
                 targets = (targets + dependency_targets).uniq
+                Pod::UI.puts "Manifest found, using #{targets}"
             else
+                Pod::UI.puts "No manifest found, using #{self.pod_targets}"
                 targets = self.pod_targets
             end
 
@@ -144,6 +144,7 @@ module Pod
                 end
 
                 output_path = sandbox.framework_folder_path_for_target_name(target.name)
+
                 output_path.mkpath unless output_path.exist?
                 Pod::Prebuild.build(sandbox_path, target, output_path, bitcode_enabled,  Podfile::DSL.custom_build_options,  Podfile::DSL.custom_build_options_simulator)
 
@@ -216,10 +217,10 @@ module Pod
             useless_target_names = sandbox.exsited_framework_target_names.reject do |name|
                 all_needed_names.include? name
             end
-            useless_target_names.each do |name|
-                path = sandbox.framework_folder_path_for_target_name(name)
-                path.rmtree if path.exist?
-            end
+            # useless_target_names.each do |name|
+            #     path = sandbox.framework_folder_path_for_target_name(name)
+            #     path.rmtree if path.exist?
+            # end
 
             if not Podfile::DSL.dont_remove_source_code
                 # only keep manifest.lock and framework folder in _Prebuild
@@ -253,8 +254,8 @@ module Pod
 
             Pod::UI.puts "sandbox root: #{sandbox.root}"
 
-            if local_manifest != nil
 
+            if local_manifest != nil
                 changes = prebuild_pods_changes
                 added = changes.added
                 changed = changes.changed 
@@ -376,10 +377,10 @@ module Pod
             useless_target_names = sandbox.exsited_framework_target_names.reject do |name| 
                 all_needed_names.include? name
             end
-            useless_target_names.each do |name|
-                path = sandbox.framework_folder_path_for_target_name(name)
-                path.rmtree if path.exist?
-            end
+            # useless_target_names.each do |name|
+            #             #     path = sandbox.framework_folder_path_for_target_name(name)
+            #             #     path.rmtree if path.exist?
+            #             # end
 
             if not Podfile::DSL.dont_remove_source_code 
                 # only keep manifest.lock and framework folder in _Prebuild

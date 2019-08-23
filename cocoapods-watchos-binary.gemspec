@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/EXAMPLE/cocoapods-watchos-binary'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files`.split($/).reject{|f| f.start_with?('Pods/') || f.end_with?('.gem') }
+  spec.files         = `git ls-files`.split($/).reject{|f| f.start_with?('Pods/') || f.start_with?('watchOS-GeneratedFrameworks') || f.end_with?('.gem') }
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']

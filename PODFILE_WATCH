@@ -1,0 +1,8 @@
+use_frameworks!
+
+target 'Pterodactyl WatchKit Extension' do
+  platform :watchos, '5.0'
+  pod 'CodableFirebase', '~> 0.2.1'
+  pod 'RxSwift', '~> 5.0.0'
+  pod 'RxCocoa', '~> 5.0.0'
+end
