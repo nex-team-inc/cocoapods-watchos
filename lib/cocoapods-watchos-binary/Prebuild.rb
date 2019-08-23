@@ -83,7 +83,8 @@ module Pod
             pod_targets_to_generate = cache_analysis_result.pod_targets_to_generate
             aggregate_targets_to_generate = cache_analysis_result.aggregate_targets_to_generate
 
-            clean_sandbox(pod_targets_to_generate)
+            # don't remove iOS target pods
+            # clean_sandbox(pod_targets_to_generate)
 
             create_and_save_projects(pod_targets_to_generate, aggregate_targets_to_generate,
                                      cache_analysis_result.build_configurations, cache_analysis_result.project_object_version)
@@ -224,7 +225,7 @@ module Pod
 
             if not Podfile::DSL.dont_remove_source_code
                 # only keep manifest.lock and framework folder in _Prebuild
-                to_remain_files = ["Manifest.lock", File.basename(existed_framework_folder)]
+                to_remain_files = [File.basename(existed_framework_folder)]
                 to_delete_files = sandbox_path.children.select do |file|
                     filename = File.basename(file)
                     not to_remain_files.include?(filename)
@@ -233,9 +234,11 @@ module Pod
                     path.rmtree if path.exist?
                 end
             else
-                # just remove the tmp files
+                # just remove the tmp files and manifest
                 path = sandbox.root + 'Manifest.lock.tmp'
                 path.rmtree if path.exist?
+                manifest_path = sandbox_path + 'Manifest.lock'
+                manifest_path.rmtree if manifest_path.exist?
             end
         end
     

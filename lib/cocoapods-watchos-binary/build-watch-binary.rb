@@ -55,6 +55,7 @@ module Pod
         installer.repo_update = repo_update?(:default => false)
         installer.update = false
         sandbox = Pod::PrebuildSandbox.from_standard_sandbox(installer.sandbox)
+        sandbox.specifications_root.mkdir unless sandbox.specifications_root.exist?
         podfile = installer.podfile
         lockfile = installer.lockfile
 
