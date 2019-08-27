@@ -20,7 +20,8 @@ module Pod
     #       in the `plugins.json` file, once your plugin is released.
     #
     class BuildWatchBinary < Command
-      WATCH_PODFILE_NAME = "Podfile_watchOS"
+      SANDBOX_DIRECTORY = 'Pods-watchOS'
+      WATCH_PODFILE_PATH = SANDBOX_DIRECTORY + '/Podfile-watchOS'
 
       self.summary = 'Build the watch binary framework files'
 
@@ -47,8 +48,15 @@ module Pod
 
         verify_watch_podfile_exists!
 
+        # override sandbox path
+        config.sandbox_root = config.installation_root + BuildWatchBinary::SANDBOX_DIRECTORY
+
+        # override podfile
         podfile = Podfile.from_file(podfile_path)
         config.podfile = podfile
+
+        # override pod lockfile path
+        config.instance_variable_set("@lockfile_path".to_sym, lockfile_path)
 
         # create sandbox installer
         installer = installer_for_config
@@ -59,6 +67,9 @@ module Pod
         podfile = installer.podfile
         lockfile = installer.lockfile
 
+        UI.puts "podfile: #{podfile.defined_in_file}"
+        UI.puts "lockfile: #{lockfile.defined_in_file}" unless lockfile.nil?
+
         binary_installer = Pod::Installer.new(sandbox, podfile, lockfile)
         binary_installer.prebuild_watch_frameworks!
       end
@@ -66,13 +77,17 @@ module Pod
 
     private
     def podfile_path
-      Pathname.new(config.installation_root + BuildWatchBinary::WATCH_PODFILE_NAME)
+      Pathname.new(config.installation_root + BuildWatchBinary::WATCH_PODFILE_PATH)
+    end
+
+    def lockfile_path
+      Pathname.new(config.installation_root + BuildWatchBinary::SANDBOX_DIRECTORY + 'Podfile.lock')
     end
 
     def verify_watch_podfile_exists!
       path = podfile_path
       unless path.exist?
-        raise Informative, "#{BuildWatchBinary::WATCH_PODFILE_NAME} not found in installation directory"
+        raise Informative, "#{BuildWatchBinary::WATCH_PODFILE_PATH} not found in installation directory"
       end
     end
 

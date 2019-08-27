@@ -4,3 +4,5 @@ pkg
 Pods/**
 watchOS-GeneratedFrameworks/**
 **.gem
+Pods-watchOS/**
+build/**

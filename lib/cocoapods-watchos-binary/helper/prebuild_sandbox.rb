@@ -5,7 +5,7 @@ module Pod
 
         # [String] standard_sandbox_path
         def self.from_standard_sanbox_path(path)
-            prebuild_sandbox_path = Pathname.new(path).realpath + "_Prebuild"
+            prebuild_sandbox_path = Pathname.new(path).realpath
             self.new(prebuild_sandbox_path)
         end
 
@@ -18,7 +18,7 @@ module Pod
         end
         
         def generate_framework_path
-            self.root.parent.parent + "watchOS-GeneratedFrameworks"
+            self.root + "GeneratedFrameworks"
         end
 
         # @param name [String] pass the target.name (may containing platform suffix)
